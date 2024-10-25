@@ -43,3 +43,11 @@ A document is the smallest unit of information in Elasticsearch, like a row in a
     "author": "John Doe",
     "year": 2023
   }
+
+### Shard
+An index can be large, so Elasticsearch breaks it into smaller parts called shards. Each shard is a fully functional and independent search engine that holds a subset of the index’s data.
+- **Example**: Imagine a massive science section in the library, too big for one branch to handle. The system divides the books into different sections (shards) and places them in various branches (nodes) so they can be managed efficiently.
+
+### Replica
+A replica is a copy of a shard. Replicas ensure high availability and fault tolerance. If a node that contains a primary shard goes down, Elasticsearch can serve requests from a replica shard.
+- **Example**: Imagine a backup copy of each book section (shard) is kept in another branch (node) of the library. If one branch loses its books (a node fails), the backup in another branch ensures you can still find the information.
