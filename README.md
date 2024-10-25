@@ -26,3 +26,6 @@ Kafka is widely used for:
 - **Kafka Connect**: Used for integrating Kafka with external systems (databases, storage, etc.).
 - **Kafka Streams**: A client library for processing and analyzing data stored in Kafka.
 - **Schema Registry**: Manages schemas for the data stored in Kafka, ensuring compatibility between producers and consumers.
+
+
+![Kafka Architecture](https://example.com/kafka-architecture.png)
