@@ -2,9 +2,9 @@
 
 Elasticsearch is an open-source, distributed, RESTful search engine built on top of Apache Lucene. It allows you to store, search, and analyze large volumes of data quickly and in near real-time. Common use cases include:
 
-- **Full-text search**
-- **Log and event data analysis** (e.g., ELK Stack)
-- **Metrics and time-series analysis**
+- **Full-Text Search:** Used for fast and flexible search across large datasets.
+- **Data Analytics:** Helpful for analyzing logs, metrics, and other time-series data.
+- **Ecosystem:** Often used with Logstash and Kibana to form the ELK stack (Elastic Stack), which enables real-time data processing, visualization, and management.
 
 ## Core Concepts
 
