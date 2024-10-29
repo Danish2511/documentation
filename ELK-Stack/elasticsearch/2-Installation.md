@@ -66,7 +66,7 @@
    - **Run an Elasticsearch Container:** Run Elasticsearch in a container using the following command:
 
    ```bash
-    docker run --name es01 --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    docker run --name elasticsearch --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.15.3
    ```
 
 3. **Verify Installation**  

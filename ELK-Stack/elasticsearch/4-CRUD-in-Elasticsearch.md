@@ -75,7 +75,7 @@ Click **Send**. You will get back the document as a JSON response.
 }
 ```
 
-![alt text](image.png)
+![alt text](images/retrieveAll.png)
 
 - The `match_all` query returns every document in the index.
 
@@ -132,6 +132,7 @@ Elasticsearch provides a **bulk API** that allows you to perform multiple operat
 ### Example of Bulk Insert
 
 In this example, we’ll insert a few more employees using the bulk API.
+
 - Use the `POST` request with `_bulk` to bulk insert:
 - **Method**: `POST`
 - **URL**: `http://localhost:9200/_bulk?pretty`
