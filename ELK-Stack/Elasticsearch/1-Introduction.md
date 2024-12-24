@@ -15,6 +15,16 @@ Elasticsearch is an open-source, distributed, RESTful search engine built on top
 - **Shard**: A partition of data in an index, allowing distributed storage.
 - **Replica**: Copies of shards for fault tolerance.
 
+## Relational Database Analogy
+
+| **Relational DB**  |  **ElasticSearch** |
+|--------------------|-------------------|
+| Database           |  Index            |
+| Table              |  Type             |
+| Row                |  Document         |
+| Column             |  Field            |
+
+
 ## Core Concepts Explained
 
 ### Cluster
