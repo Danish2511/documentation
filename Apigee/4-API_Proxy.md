@@ -66,4 +66,3 @@ Complete the following steps to build your confidence:
 - **Connection Errors:** Ensure the target URL is reachable from Apigee.\n- **Base Path Conflicts:** Avoid reusing base paths already in use.\n- **Debugging:** Use the **Trace** tool in the Apigee dashboard to identify issues.\n\n---
 
 ---
-[embed](docs/Create_an_API_proxy.pdf)[/embed]
