@@ -1,7 +1,6 @@
 ![Alt text](images/diagram.png)
 
-So here we need to focus on the region which is assigned to us **APAC (SEA)**.
-Then we are going to take APAC. So the topic name is given here in **ESB forwarder** and then a listener **listenIMS**. So it means that we need a topic if it is not available, then we need to create a topic and the taxonomy and the naming convention we need to follow in the same way as given below:
+Here, we need to focus on the region assigned to us, which is APAC (SEA). Therefore, we will work with APAC. The topic name is provided in the ESB forwarder, along with the listener listenIMS. This means that if the topic is not already available, we need to create it. We must also follow the specified taxonomy and naming conventions, as outlined below:
 
 ```
 hqscjde_{{env}}_global_itemmastercdm_pub_v1
@@ -24,3 +23,36 @@ Similarly, we need to check if we have write access to the same topic. If not, w
 Since we are only working on the **APAC** region, we need to focus only on the listener **listenIMS**. The other listener, listenWMS, is managed by the Camel bundle.
 
 To ensure the listener is available, we need to check its presence. For this, go to **wm-platform-config/env_apacdev/group_vars/\_wm_art/wmart_listeners** and verify if **listenIMS** is listed. If it is already present, we will reuse the same listener and simply add our configuration.
+
+---
+
+### cainiaowms ( Local - Singapore ) --> APAC ( Publish ) --> shipconfirmation events --> Global ( Consume ) --> OEBS ( Global Application )
+
+- **cainiaowms_pd_global_shipconfirmcdm_pub_v1**
+
+### Step1:- adding the schema
+
+- **repo: [Integration-artifcats](https://github.com/AmwayCommon/integration-artifacts/blob/main/abgcdm/protobuf/ABGCDM_ShipConfirm_CDM_ShipConfirmCDM.proto)**
+
+### Step2:- Record registration in kafka
+
+- **repo: [gi-confluent-kafka-config](https://github.com/AmwayCommon/gi-confluent-kafka-config/blob/main/records/ABGCDM_ShipConfirm_CDM_ShipConfirmCDM.yml)**
+
+### Step3:- Register an application
+
+- **repo: [gi-confluent-kafka-config](https://github.com/AmwayCommon/gi-confluent-kafka-config/blob/main/applications/cainiaowms.yml)**
+
+### Step4:- Creating a topic
+
+- **repo: [gi-confluent-kafka-config](https://github.com/AmwayCommon/gi-confluent-kafka-config/blob/main/topics/cainiaowms/shipconfirmcdm.yml)**
+
+### Step5:- Defining the topic
+
+- **repo: [gi-confluent-kafka-config](https://github.com/AmwayCommon/gi-confluent-kafka-config/blob/main/env_integration_production/group_vars/_topics/topics_defs/pd.yml)**
+
+### Step6:- Providing the access to consume and publish the data to this topic
+
+- **repo: gi-confluent-kafka-config**
+- **[publish permission:](https://github.com/AmwayCommon/gi-confluent-kafka-config/blob/main/env_integration_production/group_vars/_service_accounts/service_accounts/wm_apac_gbl_pd.yml)**
+
+- **[Consume permission:](https://github.com/AmwayCommon/gi-confluent-kafka-config/blob/main/env_integration_production/group_vars/_service_accounts/service_accounts/wm_ent_gbl_pd.yml)**
