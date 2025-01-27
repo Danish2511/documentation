@@ -1,28 +1,32 @@
 ![Alt text](images/diagram.png)
 
-Here, we need to focus on the region assigned to us, which is APAC (SEA). Therefore, we will work with APAC. The topic name is provided in the ESB forwarder, along with the listener listenIMS. This means that if the topic is not already available, we need to create it. We must also follow the specified taxonomy and naming conventions, as outlined below:
+### 1. Here We will be focusing on the APAC (SEA) region, so we will be working with APAC.
 
-```
-hqscjde_{{env}}_global_itemmastercdm_pub_v1
+### 2. The topic name is provided in the ESB forwarder, along with the listener "listenIMS."
 
+### 3. If the topic is not already available, we need to create it.
+
+### 4. We must follow the specified naming conventions and taxonomy for the topic:
+
+```json
+hqscjde_{{env}}_global_itemmastercdm_pub_v1 The format is:
 <app>_<env>_<global>_<canonical/event>_<pattern>_<ver>
 ```
 
-Before proceeding, we need to check two things.
+### 4. Before proceeding, we need to check two things:
 
-First, we need to verify whether the schema is available. To do this, go to the **integration-artifacts** repository and search for **itemMasterCDM**. If it is present, it means the schema is already registered, and there’s no need to create it.
+- Check if the schema is available: Search for `itemMasterCDM` in the integration-artifacts repository. If found, the schema is already registered.
+- Check if the application is registered: Look for the `hqscjde` application in the gi-confluent-kafka-config repository.
 
-Second, we need to verify whether the application is registered. For this, navigate to the **gi-confluent-kafka-config** repository and check if the **hqscjde** application is available.
+### 5. We need to create a listener that listens to the Producer. Ensure the correct access is granted, using the service account name wm_apac_gbl_dev.
 
-Next, we need to create a listener that will listen to the Producer. To do this, we must ensure the correct access is provided, and your service account name, as shown in the diagram above, is wm_apac_gbl_dev.
+### 6. We must verify if the correct access rights for the `hqscjde` topic are granted. Search for the topic in the gi-confluent-kafka-config repository to check if the access is already granted.
 
-Now, we need to ensure the correct access rights are granted for the **hqscjde** topic. Before doing so, we should check whether the access is already granted or if it needs to be added. To verify this, search for the topic in the **gi-confluent-kafka-config** repository.
+### 7. If we don't have write access to the topic, we need to grant the appropriate write access.
 
-Similarly, we need to check if we have write access to the same topic. If not, we will need to grant the appropriate write access.
+### 8. Since we're only working on the APAC region, we'll focus on the `listenIMS` listener. The `listenWMS` listener is managed by the Camel bundle.
 
-Since we are only working on the **APAC** region, we need to focus only on the listener **listenIMS**. The other listener, listenWMS, is managed by the Camel bundle.
-
-To ensure the listener is available, we need to check its presence. For this, go to **wm-platform-config/env_apacdev/group_vars/\_wm_art/wmart_listeners** and verify if **listenIMS** is listed. If it is already present, we will reuse the same listener and simply add our configuration.
+### 9. To ensure the listener is available, check if `listenIMS` is listed in wm-platform-config/env_apacdev/group_vars/\_wm_art/wmart_listeners. If it's listed, we need to reuse the existing listener and add our configuration.
 
 ---
 
