@@ -276,3 +276,8 @@ This step ensures that you’re **authorized** to access certain parts of the cl
 - **Authorization:** "What are you allowed to do?" (Check permissions)
 
 ---
+
+
+
+
+
