@@ -1326,3 +1326,120 @@ There are four types of access:
 - All subfolders and services inherit `Marketing_ACL` unless they have their own ACL.
 
 ---
+
+### **1. How Do ACLs Affect Creating, Viewing, and Deleting Elements?**
+**Answer:**
+Access Control Lists (ACLs) determine what actions users can perform on elements (e.g., services, folders, packages) in webMethods. Here’s how ACLs impact creating, viewing, and deleting elements:
+
+#### **Key Rules:**
+1. **Creating or Pasting an Element**:
+   - You must have **Write access** to the parent folder.
+
+2. **Copying an Element**:
+   - You must have **Read access** to the element and **Write access** to the parent folder.
+
+3. **Renaming or Deleting an Element**:
+   - You must have **Write access** to both the element and its parent folder.
+
+4. **Copying a Package**:
+   - You must be a member of a group assigned to the **Replicators ACL**.
+
+5. **Viewing Elements**:
+   - You can only see elements for which you have **List access**.
+
+**Example:**
+- If you want to create a new service in a folder, you need **Write access** to that folder.
+- If you want to delete a service, you need **Write access** to both the service and its parent folder.
+
+---
+
+### **2. How Does ACL Inheritance Work When Creating Elements?**
+**Answer:**
+When you create a folder and assign an ACL to it, any elements created within that folder **inherit its ACL** by default. You can explicitly assign a different ACL to an element if needed.
+
+**Example:**
+- Create a folder `Marketing` and assign `Marketing_ACL` to it.
+- Any new services or subfolders created in `Marketing` will inherit `Marketing_ACL`.
+
+---
+
+### **3. Why Can’t I See All Elements in the Package Navigator View?**
+**Answer:**
+You can only see elements for which you have **List access**. If you don’t have List access to an element, it won’t appear in the Package Navigator view.
+
+**Example:**
+- If you don’t have List access to a folder `Finance`, it won’t be visible in the Package Navigator.
+
+---
+
+### **4. Example Scenario: Creating, Copying, and Deleting Elements**
+**Scenario**: You want to create, copy, and delete services in a folder.
+
+#### **Steps:**
+1. **Create a Service**:
+   - Ensure you have **Write access** to the parent folder.
+   - Create a new service `ProcessOrder`.
+
+2. **Copy a Service**:
+   - Ensure you have **Read access** to `ProcessOrder` and **Write access** to the parent folder.
+   - Copy `ProcessOrder` to create `ProcessOrder_Copy`.
+
+3. **Delete a Service**:
+   - Ensure you have **Write access** to `ProcessOrder` and its parent folder.
+   - Delete `ProcessOrder`.
+
+---
+
+### **5. Example Scenario: ACL Inheritance**
+**Scenario**: You want to create a folder and ensure all its elements inherit its ACL.
+
+#### **Steps:**
+1. **Create a Folder**:
+   - Create a folder `Sales`.
+
+2. **Assign ACL**:
+   - Assign `Sales_ACL` to the `Sales` folder.
+
+3. **Create Elements**:
+   - Create a service `GenerateReport` in the `Sales` folder.
+   - `GenerateReport` will inherit `Sales_ACL`.
+
+4. **Override ACL**:
+   - If needed, explicitly assign a different ACL to `GenerateReport`.
+
+---
+
+### **6. Example Scenario: Copying a Package**
+**Scenario**: You want to copy a package from one Integration Server to another.
+
+#### **Steps:**
+1. **Check Replicators ACL**:
+   - Ensure you are a member of a group assigned to the **Replicators ACL**.
+
+2. **Copy the Package**:
+   - Use the Replicator tool to copy the package.
+
+---
+
+### **7. Example Scenario: Viewing Elements**
+**Scenario**: You can’t see all elements in the Package Navigator.
+
+#### **Steps:**
+1. **Check List Access**:
+   - Verify that you have **List access** to the missing elements.
+
+2. **Request Access**:
+   - If you don’t have List access, request it from the administrator.
+
+---
+
+### **8. Summary of ACL Rules for Elements**
+| **Action**               | **Required Access**                                                                 |
+|--------------------------|-------------------------------------------------------------------------------------|
+| Create or Paste Element   | Write access to the parent folder.                                                  |
+| Copy Element              | Read access to the element and Write access to the parent folder.                   |
+| Rename or Delete Element  | Write access to the element and its parent folder.                                  |
+| Copy Package              | Membership in a group assigned to the Replicators ACL.                              |
+| View Element              | List access to the element.                                                         |
+
+---
