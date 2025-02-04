@@ -2277,3 +2277,197 @@ A **JMS Trigger Service** must:
    - The web services stack processes the SOAP message and invokes the appropriate web service.
 
 ---
+
+### **1. What is a Message Selector?**
+**Answer:**
+A **Message Selector** is an expression that filters messages based on header or property fields in a JMS message. It allows a JMS trigger to receive only a subset of messages from a destination.
+
+#### **Key Features:**
+- **Syntax**: Uses SQL92 expression syntax.
+- **Filtering**: Applied by the JMS provider before delivering messages to the trigger.
+- **Resource Efficiency**: Reduces the load on Integration Server by delegating filtering to the JMS provider.
+
+**Example:**
+- A message selector `OrderType = 'Priority'` ensures the trigger receives only priority order messages.
+
+---
+
+### **2. What is Message-Oriented Middleware (MOM)?**
+**Answer:**
+**Message-Oriented Middleware (MOM)** is infrastructure that enables asynchronous communication between applications by passing self-contained messages. It uses message queues to store and deliver messages, ensuring reliable communication even when the destination application is busy or offline.
+
+#### **Key Features:**
+1. **Asynchronous Communication**: Messages are sent and received independently.
+2. **Message Queues**: Temporarily store messages until they are processed.
+3. **Loose Coupling**: Applications communicate without being directly connected.
+4. **Scalability**: Supports distributed systems with multiple components.
+
+**Example:**
+- A stock trading system uses MOM to send stock price updates to multiple trading applications.
+
+---
+
+### **3. What is a Topic Durable Subscriber?**
+**Answer:**
+A **Topic Durable Subscriber** is a dedicated queue allocated for a consumer (e.g., a JMS trigger) to ensure messages are saved in Universal Messaging (UM) or MOM even when the consumer is offline.
+
+**Example:**
+- A durable subscriber ensures a JMS trigger receives all stock price updates, even if the trigger is temporarily disabled.
+
+---
+
+### **4. What is Exactly Once Processing?**
+**Answer:**
+**Exactly Once Processing** ensures that a persistent message is processed only once by a JMS trigger, avoiding duplicates. It requires:
+1. **Persistent Messages**: Messages are stored durably.
+2. **Client Acknowledgment**: The trigger acknowledges messages after processing.
+3. **Exactly Once Properties**: Configured for the JMS trigger.
+
+**Example:**
+- A financial transaction message is processed exactly once to prevent double charges.
+
+---
+
+### **5. What is Concurrent Processing?**
+**Answer:**
+**Concurrent Processing** allows Integration Server to process multiple messages or documents in parallel using separate threads. It improves performance but does not guarantee message order.
+
+#### **Key Features:**
+- **Faster Processing**: Multiple messages are processed simultaneously.
+- **Resource Intensive**: Consumes more threads and memory.
+- **No Order Guarantee**: Messages may not be processed in the order they were received.
+
+**Example:**
+- A JMS trigger processes 10 order confirmation messages concurrently, reducing processing time.
+
+---
+
+### **6. What is Serial Processing?**
+**Answer:**
+**Serial Processing** ensures messages are processed one at a time in the order they were received. It uses a single thread for processing.
+
+#### **Key Features:**
+- **Order Guarantee**: Messages are processed in the order they were received.
+- **Slower Processing**: Only one message is processed at a time.
+- **Resource Efficient**: Uses fewer threads and less memory.
+
+**Example:**
+- A JMS trigger processes stock price updates in the order they are published.
+
+---
+
+### **7. What are Join Time-Outs?**
+**Answer:**
+A **Join Time-Out** specifies how long Integration Server waits for additional messages to fulfill a join condition in a JMS trigger. It starts when the first message satisfying the join is received.
+
+**Example:**
+- A join time-out of 10 seconds ensures Integration Server waits 10 seconds for related messages before processing.
+
+---
+
+### **8. What are Users for JMS Triggers?**
+**Answer:**
+For a JMS trigger, the **Execution User** specifies the credentials Integration Server uses when invoking services associated with the trigger. It ensures proper access control and security.
+
+**Example:**
+- A JMS trigger uses the `Admin` user to invoke a service that processes order messages.
+
+---
+
+### **9. What is a Resource Monitoring Service?**
+**Answer:**
+A **Resource Monitoring Service** checks the availability of resources used by a trigger. It is invoked when a trigger is suspended due to errors or retries.
+
+#### **Key Features:**
+- **Service Signature**: Uses `pub.trigger:resourceMonitoringSpec`.
+- **Output**: Returns `true` if resources are available, `false` otherwise.
+- **Exception Handling**: Catches and handles exceptions.
+
+**Example:**
+- A resource monitoring service checks if a database is available before resuming a trigger.
+
+---
+
+### **10. What is a Document Resolver Service?**
+**Answer:**
+A **Document Resolver Service** performs duplicate detection for messages received by a JMS trigger or documents received by a webMethods messaging trigger.
+
+#### **Key Features:**
+- **Service Signature**:
+   - `pub.jms:documentResolverSpec` for JMS triggers.
+   - `pub.publish:documentResolverSpec` for webMethods messaging triggers.
+- **Output**: Returns `NEW`, `DUPLICATE`, or `IN_DOUBT`.
+- **Exception Handling**: Catches and handles exceptions.
+
+**Example:**
+- A document resolver service checks if a financial transaction message has already been processed.
+
+---
+
+### **11. Example Scenario: Message Selector**
+**Scenario**: A JMS trigger needs to process only high-priority orders.
+
+#### **Steps:**
+1. **Create Message Selector**:
+   - Define a selector `OrderPriority = 'High'`.
+
+2. **Configure Trigger**:
+   - Apply the selector to the JMS trigger.
+
+3. **Receive Messages**:
+   - The trigger receives only high-priority order messages.
+
+---
+
+### **12. Example Scenario: Exactly Once Processing**
+**Scenario**: A JMS trigger processes payment confirmation messages.
+
+#### **Steps:**
+1. **Enable Exactly Once Processing**:
+   - Set the trigger’s acknowledgment mode to `CLIENT_ACKNOWLEDGE`.
+   - Configure exactly once properties.
+
+2. **Process Messages**:
+   - The trigger processes each payment confirmation message exactly once.
+
+---
+
+### **13. Example Scenario: Concurrent Processing**
+**Scenario**: A JMS trigger processes order confirmation messages.
+
+#### **Steps:**
+1. **Enable Concurrent Processing**:
+   - Set the maximum number of concurrent threads to 10.
+
+2. **Process Messages**:
+   - The trigger processes up to 10 order confirmation messages simultaneously.
+
+---
+
+### **14. Example Scenario: Serial Processing**
+**Scenario**: A JMS trigger processes stock price updates.
+
+#### **Steps:**
+1. **Enable Serial Processing**:
+   - Configure the trigger to process messages one at a time.
+
+2. **Process Messages**:
+   - The trigger processes stock price updates in the order they are received.
+
+---
+
+### **15. Example Scenario: Resource Monitoring Service**
+**Scenario**: A JMS trigger is suspended due to a database outage.
+
+#### **Steps:**
+1. **Create Resource Monitoring Service**:
+   - Define a service that checks database availability.
+
+2. **Configure Trigger**:
+   - Assign the resource monitoring service to the trigger.
+
+3. **Resume Trigger**:
+   - When the database is available, the trigger resumes processing.
+
+---
+
