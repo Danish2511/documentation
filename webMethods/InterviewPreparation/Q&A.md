@@ -2471,3 +2471,170 @@ A **Document Resolver Service** performs duplicate detection for messages receiv
 
 ---
 
+### **1. What is Transaction Management in webMethods?**
+**Answer:**
+**Transaction Management** in webMethods ensures that a set of operations (e.g., database inserts, updates) are treated as a single logical unit of work. The transaction manager handles the beginning, ending, and context of transactions, ensuring that all operations are either committed or rolled back.
+
+#### **Key Features:**
+1. **Transaction Manager**:
+   - Manages local and XA transactions.
+   - Enlists resources into transactions.
+   - Ensures transactions are not mixed illegally.
+
+2. **Transaction Types**:
+   - **Local Transaction (LOCAL_TRANSACTION)**: Manages transactions within a single resource.
+   - **XA Transaction (XA_TRANSACTION)**: Manages distributed transactions across multiple resources.
+
+**Example:**
+- A transaction involving multiple database inserts ensures that all inserts are committed or rolled back together.
+
+---
+
+### **2. What are Implicit and Explicit Transactions?**
+**Answer:**
+- **Implicit Transactions**:
+   - Automatically managed by Integration Server.
+   - No additional service calls are required.
+   - Example: A flow service with multiple adapter services.
+
+- **Explicit Transactions**:
+   - Manually controlled using built-in services.
+   - Example: Use `pub.art.transaction:startTransaction`, `commitTransaction`, and `rollbackTransaction`.
+
+**Example:**
+- **Implicit**: A flow service inserts records into a database. If one insert fails, all are rolled back.
+- **Explicit**: A flow service starts a transaction, performs multiple operations, and commits or rolls back based on success.
+
+---
+
+### **3. What is Transaction Logging?**
+**Answer:**
+**Transaction Logging** records transaction details for recovery and auditing. By default, it is enabled for XA transactions but can be configured for other scenarios.
+
+**Example:**
+- Logging is enabled for a multisend guaranteed policy to ensure message delivery.
+
+---
+
+### **4. Why Can’t a Single Transaction Context Have Multiple LOCAL_TRANSACTION Connections?**
+**Answer:**
+A single transaction context can have multiple XA transactions but only one local transaction because local transactions are resource-specific and cannot be coordinated across multiple resources.
+
+**Example:**
+- A transaction involving multiple databases uses XA transactions, while a transaction within a single database uses a local transaction.
+
+---
+
+### **5. What are Duplicate Detection Methods for JMS Triggers?**
+**Answer:**
+**Duplicate Detection** ensures that a JMS trigger processes each message only once. Methods include:
+1. **Delivery Count**: Checks the `JMSXDeliveryCount` property.
+2. **Document History Database**: Maintains a record of processed messages.
+3. **Document Resolver Service**: Custom logic to determine message status.
+
+**Example:**
+- A JMS trigger uses the document history database to detect if a payment confirmation message has already been processed.
+
+---
+
+### **6. What is the Delivery Count for JMS Messages?**
+**Answer:**
+The **Delivery Count** indicates how many times a JMS provider has delivered a message to a JMS trigger. It is stored in the `JMSXDeliveryCount` property.
+
+#### **Key Values:**
+- **-1**: Delivery count is undefined.
+- **1**: First delivery.
+- **>1**: Message has been delivered multiple times.
+
+**Example:**
+- A message with `JMSXDeliveryCount = 2` may have been processed before.
+
+---
+
+### **7. What is a Document Resolver Service?**
+**Answer:**
+A **Document Resolver Service** determines the status of a message (NEW, DUPLICATE, or IN_DOUBT) for duplicate detection. It uses custom logic to check if a message has been processed.
+
+**Example:**
+- A document resolver service checks if a financial transaction message has already been processed.
+
+---
+
+### **8. Example Scenario: Implicit Transaction**
+**Scenario**: A flow service inserts records into a database.
+
+#### **Steps:**
+1. **Execute Flow Service**:
+   - The flow service inserts multiple records.
+
+2. **Automatic Transaction Management**:
+   - Integration Server manages the transaction implicitly.
+
+3. **Commit or Rollback**:
+   - If all inserts succeed, the transaction is committed.
+   - If any insert fails, the transaction is rolled back.
+
+---
+
+### **9. Example Scenario: Explicit Transaction**
+**Scenario**: A flow service performs multiple operations across different systems.
+
+#### **Steps:**
+1. **Start Transaction**:
+   - Use `pub.art.transaction:startTransaction`.
+
+2. **Perform Operations**:
+   - Insert records into a database.
+   - Send a JMS message.
+
+3. **Commit or Rollback**:
+   - Use `pub.art.transaction:commitTransaction` if all operations succeed.
+   - Use `pub.art.transaction:rollbackTransaction` if any operation fails.
+
+---
+
+### **10. Example Scenario: Duplicate Detection**
+**Scenario**: A JMS trigger processes payment confirmation messages.
+
+#### **Steps:**
+1. **Check Delivery Count**:
+   - If `JMSXDeliveryCount > 1`, the message may be a duplicate.
+
+2. **Check Document History**:
+   - Look up the message ID in the document history database.
+
+3. **Execute Document Resolver Service**:
+   - Use custom logic to determine if the message is new, duplicate, or in doubt.
+
+---
+
+### **11. Example Scenario: Delivery Count**
+**Scenario**: A JMS trigger receives a message with `JMSXDeliveryCount = 2`.
+
+#### **Steps:**
+1. **Check Delivery Count**:
+   - The message has been delivered twice.
+
+2. **Determine Status**:
+   - Use the document history database or document resolver service to check if the message has been processed.
+
+3. **Process Message**:
+   - If the message is new, process it.
+   - If the message is a duplicate, acknowledge it without processing.
+
+---
+
+### **12. Example Scenario: Document Resolver Service**
+**Scenario**: A JMS trigger processes financial transaction messages.
+
+#### **Steps:**
+1. **Create Document Resolver Service**:
+   - Define a service that checks if a transaction has already been processed.
+
+2. **Configure Trigger**:
+   - Assign the document resolver service to the JMS trigger.
+
+3. **Process Messages**:
+   - The service determines if each message is new, duplicate, or in doubt.
+
+---
