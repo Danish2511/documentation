@@ -1328,59 +1328,74 @@ There are four types of access:
 ---
 
 ### **1. How Do ACLs Affect Creating, Viewing, and Deleting Elements?**
+
 **Answer:**
 Access Control Lists (ACLs) determine what actions users can perform on elements (e.g., services, folders, packages) in webMethods. Here’s how ACLs impact creating, viewing, and deleting elements:
 
 #### **Key Rules:**
+
 1. **Creating or Pasting an Element**:
+
    - You must have **Write access** to the parent folder.
 
 2. **Copying an Element**:
+
    - You must have **Read access** to the element and **Write access** to the parent folder.
 
 3. **Renaming or Deleting an Element**:
+
    - You must have **Write access** to both the element and its parent folder.
 
 4. **Copying a Package**:
+
    - You must be a member of a group assigned to the **Replicators ACL**.
 
 5. **Viewing Elements**:
    - You can only see elements for which you have **List access**.
 
 **Example:**
+
 - If you want to create a new service in a folder, you need **Write access** to that folder.
 - If you want to delete a service, you need **Write access** to both the service and its parent folder.
 
 ---
 
 ### **2. How Does ACL Inheritance Work When Creating Elements?**
+
 **Answer:**
 When you create a folder and assign an ACL to it, any elements created within that folder **inherit its ACL** by default. You can explicitly assign a different ACL to an element if needed.
 
 **Example:**
+
 - Create a folder `Marketing` and assign `Marketing_ACL` to it.
 - Any new services or subfolders created in `Marketing` will inherit `Marketing_ACL`.
 
 ---
 
 ### **3. Why Can’t I See All Elements in the Package Navigator View?**
+
 **Answer:**
 You can only see elements for which you have **List access**. If you don’t have List access to an element, it won’t appear in the Package Navigator view.
 
 **Example:**
+
 - If you don’t have List access to a folder `Finance`, it won’t be visible in the Package Navigator.
 
 ---
 
 ### **4. Example Scenario: Creating, Copying, and Deleting Elements**
+
 **Scenario**: You want to create, copy, and delete services in a folder.
 
 #### **Steps:**
+
 1. **Create a Service**:
+
    - Ensure you have **Write access** to the parent folder.
    - Create a new service `ProcessOrder`.
 
 2. **Copy a Service**:
+
    - Ensure you have **Read access** to `ProcessOrder` and **Write access** to the parent folder.
    - Copy `ProcessOrder` to create `ProcessOrder_Copy`.
 
@@ -1391,16 +1406,21 @@ You can only see elements for which you have **List access**. If you don’t hav
 ---
 
 ### **5. Example Scenario: ACL Inheritance**
+
 **Scenario**: You want to create a folder and ensure all its elements inherit its ACL.
 
 #### **Steps:**
+
 1. **Create a Folder**:
+
    - Create a folder `Sales`.
 
 2. **Assign ACL**:
+
    - Assign `Sales_ACL` to the `Sales` folder.
 
 3. **Create Elements**:
+
    - Create a service `GenerateReport` in the `Sales` folder.
    - `GenerateReport` will inherit `Sales_ACL`.
 
@@ -1410,10 +1430,13 @@ You can only see elements for which you have **List access**. If you don’t hav
 ---
 
 ### **6. Example Scenario: Copying a Package**
+
 **Scenario**: You want to copy a package from one Integration Server to another.
 
 #### **Steps:**
+
 1. **Check Replicators ACL**:
+
    - Ensure you are a member of a group assigned to the **Replicators ACL**.
 
 2. **Copy the Package**:
@@ -1422,10 +1445,13 @@ You can only see elements for which you have **List access**. If you don’t hav
 ---
 
 ### **7. Example Scenario: Viewing Elements**
+
 **Scenario**: You can’t see all elements in the Package Navigator.
 
 #### **Steps:**
+
 1. **Check List Access**:
+
    - Verify that you have **List access** to the missing elements.
 
 2. **Request Access**:
@@ -1434,32 +1460,38 @@ You can only see elements for which you have **List access**. If you don’t hav
 ---
 
 ### **8. Summary of ACL Rules for Elements**
-| **Action**               | **Required Access**                                                                 |
-|--------------------------|-------------------------------------------------------------------------------------|
-| Create or Paste Element   | Write access to the parent folder.                                                  |
-| Copy Element              | Read access to the element and Write access to the parent folder.                   |
-| Rename or Delete Element  | Write access to the element and its parent folder.                                  |
-| Copy Package              | Membership in a group assigned to the Replicators ACL.                              |
-| View Element              | List access to the element.                                                         |
+
+| **Action**               | **Required Access**                                               |
+| ------------------------ | ----------------------------------------------------------------- |
+| Create or Paste Element  | Write access to the parent folder.                                |
+| Copy Element             | Read access to the element and Write access to the parent folder. |
+| Rename or Delete Element | Write access to the element and its parent folder.                |
+| Copy Package             | Membership in a group assigned to the Replicators ACL.            |
+| View Element             | List access to the element.                                       |
 
 ---
 
 ### **1. What are Enterprise Integration Patterns?**
+
 **Answer:**
 Enterprise Integration Patterns (EIPs) are design patterns that provide solutions to common challenges in integrating disparate systems. They help bridge the gap between high-level integration goals and actual system implementation.
 
 #### **Integration Styles:**
+
 1. **File Transfer**:
+
    - Applications produce files containing data for other applications to consume.
    - Files are transformed into different formats as needed.
    - Example: Exporting customer data from an ERP system to a CSV file for use in a reporting tool.
 
 2. **Shared Database**:
+
    - Applications store data in a single shared database.
    - The database schema is designed to meet the needs of all applications.
    - Example: Multiple applications (e.g., CRM, ERP) accessing a shared customer database.
 
 3. **Remote Procedure Invocation (RPI)**:
+
    - Applications expose interfaces for other applications to interact with them.
    - Example: A web service that allows an e-commerce site to check inventory levels in real-time.
 
@@ -1470,8 +1502,10 @@ Enterprise Integration Patterns (EIPs) are design patterns that provide solution
 ---
 
 ### **2. What are Messaging Systems and Messaging Patterns?**
+
 **Answer:**
 Messaging systems enable applications to communicate asynchronously, making them loosely coupled and reliable. Key components include:
+
 - **Channels**: Pathways for transmitting messages.
 - **Messages**: Packets of data exchanged between applications.
 - **Pipes and Filters**: Process messages through a series of steps.
@@ -1480,7 +1514,9 @@ Messaging systems enable applications to communicate asynchronously, making them
 - **Endpoints**: Entry and exit points for messages.
 
 #### **Messaging Patterns:**
+
 1. **Publish-Subscribe**:
+
    - A message is published to a channel and delivered to multiple subscribers.
    - Example: A stock price update is published, and multiple trading applications receive the update.
 
@@ -1491,81 +1527,100 @@ Messaging systems enable applications to communicate asynchronously, making them
 ---
 
 ### **3. What are DataDirect Drivers?**
+
 **Answer:**
 **DataDirect Drivers** are JDBC drivers provided by Software AG for configuring adapter connections in webMethods. They ensure seamless communication between webMethods and various databases.
 
 **Example:**
+
 - Use the DataDirect Oracle driver to connect webMethods to an Oracle database.
 
 ---
 
 ### **4. What is the Maximum Row in the Select Section in Basic Notification?**
+
 **Answer:**
 The **Maximum Row** setting in basic notification determines the maximum number of rows the Integration Server can fetch from the database at one time.
 
 **Example:**
+
 - If set to 100, the Integration Server will fetch up to 100 rows per polling interval.
 
 ---
 
 ### **5. When to Suspend and When to Disable JDBC Adapter Polling Notifications?**
+
 **Answer:**
+
 - **Suspend**:
-   - Use during downtime, patching, installation, restart, or upgrade.
-   - Prevents the buffer table and trigger from being dropped in the database.
-   - Ensures no records are lost.
+
+  - Use during downtime, patching, installation, restart, or upgrade.
+  - Prevents the buffer table and trigger from being dropped in the database.
+  - Ensures no records are lost.
 
 - **Disable**:
-   - Use when retiring the notification permanently.
-   - Drops the buffer table and trigger in the database.
+  - Use when retiring the notification permanently.
+  - Drops the buffer table and trigger in the database.
 
 **Example:**
+
 - Suspend polling notifications during a database upgrade.
 - Disable polling notifications if the integration is no longer needed.
 
 ---
 
 ### **6. What is a JMS Connection?**
+
 **Answer:**
 A **JMS Connection** is an active connection from a client to its JMS provider. It encapsulates an open TCP/IP socket and supports concurrent use.
 
 #### **Key Features:**
+
 - **Client Authentication**: Occurs when the connection is created.
 - **Client Identifier**: Unique identifier for the connection.
 - **ExceptionListener**: Handles exceptions during message delivery.
 - **Close Connection**: Always close the connection when no longer needed.
 
 **Example:**
+
 - A JMS connection is established between an e-commerce application and a message broker to send order confirmation messages.
 
 ---
 
 ### **7. What are JMS Sessions?**
+
 **Answer:**
 A **JMS Session** is a single-threaded context for producing and consuming messages. It supports transactional units and creates message producers, consumers, and temporary destinations.
 
 #### **Key Features:**
+
 - **Message Producers**: Send messages to a destination.
 - **Message Consumers**: Receive messages from a destination.
 - **Temporary Destinations**: Create temporary topics or queues.
 - **Transactional Units**: Group send and receive operations into a transaction.
 
 **Example:**
+
 - A JMS session is used to send an order confirmation message and receive a payment confirmation message within the same transaction.
 
 ---
 
 ### **8. Example Scenario: Publish-Subscribe Messaging**
+
 **Scenario**: A stock trading system needs to notify multiple applications when a stock price changes.
 
 #### **Steps:**
+
 1. **Create a Topic**:
+
    - Define a topic `StockPriceUpdates`.
 
 2. **Publish Messages**:
+
    - When a stock price changes, publish a message to `StockPriceUpdates`.
 
 3. **Subscribe to Topic**:
+
    - Multiple trading applications subscribe to `StockPriceUpdates`.
 
 4. **Receive Messages**:
@@ -1574,13 +1629,17 @@ A **JMS Session** is a single-threaded context for producing and consuming messa
 ---
 
 ### **9. Example Scenario: Point-to-Point Messaging**
+
 **Scenario**: An e-commerce system needs to send order confirmation messages to customers.
 
 #### **Steps:**
+
 1. **Create a Queue**:
+
    - Define a queue `OrderConfirmations`.
 
 2. **Send Messages**:
+
    - When an order is placed, send a confirmation message to `OrderConfirmations`.
 
 3. **Receive Messages**:
@@ -1589,17 +1648,231 @@ A **JMS Session** is a single-threaded context for producing and consuming messa
 ---
 
 ### **10. Example Scenario: Using DataDirect Drivers**
+
 **Scenario**: You need to connect webMethods to a MySQL database.
 
 #### **Steps:**
+
 1. **Download Driver**:
+
    - Obtain the DataDirect MySQL JDBC driver.
 
 2. **Configure Connection**:
+
    - Place the driver JAR file in `/instances/instance_name/WmJDBCAdapter/code/jars`.
    - Configure the JDBC Adapter connection in webMethods.
 
 3. **Test Connection**:
    - Verify the connection by running a test query.
+
+---
+
+### **1. What is JMS Messaging?**
+
+**Answer:**
+**Java Message Service (JMS)** is a Java API that enables applications to communicate asynchronously using a common set of interfaces. JMS provides messaging interfaces but does not include implementations. A **JMS provider** (e.g., Software AG Universal Messaging or webMethods Broker) implements these interfaces and provides administrative and control features.
+
+#### **Key Components:**
+
+1. **JMS Provider**:
+
+   - A messaging system that supports JMS interfaces and handles message routing and delivery.
+
+2. **JMS Clients**:
+   - Java programs or components that produce (send) and consume (receive) messages.
+
+**Example:**
+
+- A JMS client sends an order confirmation message to a JMS provider, which delivers it to the customer’s application.
+
+---
+
+### **2. What is Point-to-Point (PTP) Messaging?**
+
+**Answer:**
+In **Point-to-Point (PTP)** messaging, messages are sent to a specific destination called a **queue**. Each message is delivered to only one receiver, even if multiple receivers are listening to the queue.
+
+#### **Key Features:**
+
+- **Queue**: Represents a single receiver.
+- **Senders**: Submit messages to the queue.
+- **Receivers**: Consume messages from the queue.
+
+**Example:**
+
+- An e-commerce system sends order confirmation messages to a queue. Only the customer’s application receives the confirmation.
+
+---
+
+### **3. What is Publish-Subscribe Messaging?**
+
+**Answer:**
+In **Publish-Subscribe** messaging, messages are sent to a destination called a **topic**. Multiple subscribers can receive messages published to a topic.
+
+#### **Key Features:**
+
+- **Topic**: Represents a message category.
+- **Publishers**: Send messages to the topic.
+- **Subscribers**: Receive messages from the topic.
+
+**Example:**
+
+- A stock trading system publishes stock price updates to a topic. Multiple trading applications subscribe to the topic to receive updates.
+
+---
+
+### **4. What are Durable Subscriptions?**
+
+**Answer:**
+**Durable Subscriptions** allow subscribers to receive all messages published on a topic, even if the subscriber is inactive. Messages are stored in non-volatile storage until the subscriber becomes active and acknowledges receipt.
+
+**Example:**
+
+- A subscriber to a `StockUpdates` topic receives all stock price updates, even if the subscriber was offline when the updates were published.
+
+---
+
+### **5. What are Non-Durable Subscriptions?**
+
+**Answer:**
+**Non-Durable Subscriptions** allow subscribers to receive messages only if they are active when the messages are published. Messages are not stored for inactive subscribers.
+
+**Example:**
+
+- A subscriber to a `BreakingNews` topic receives news updates only if the subscriber is online when the updates are published.
+
+---
+
+### **6. What is the Difference Between Durable and Non-Durable Subscribers?**
+
+**Answer:**
+
+- **Durable Subscribers**:
+
+  - Receive all messages, even when inactive.
+  - Messages are stored in guaranteed storage.
+  - Example: A JMS trigger that processes all messages, even if disabled temporarily.
+
+- **Non-Durable Subscribers**:
+  - Receive messages only when active.
+  - Messages are not stored for inactive subscribers.
+  - Example: A JMS trigger that processes messages only when enabled.
+
+---
+
+### **7. What is Message Acknowledgment?**
+
+**Answer:**
+**Message Acknowledgment** ensures that a message is successfully consumed. The acknowledgment mode determines how and when messages are acknowledged.
+
+#### **Acknowledgment Modes:**
+
+1. **AUTO_ACKNOWLEDGE**:
+
+   - Messages are acknowledged automatically upon receipt.
+   - Example: Integration Server acknowledges a message before processing it.
+
+2. **CLIENT_ACKNOWLEDGE**:
+
+   - Messages are acknowledged after successful processing.
+   - Example: A JMS trigger acknowledges a message only after completing its workflow.
+
+3. **DUPS_OK_ACKNOWLEDGE**:
+   - Messages are lazily acknowledged, allowing for potential duplicates.
+   - Example: Used for non-critical messages where duplicates are acceptable.
+
+---
+
+### **8. What is Volatile Storage?**
+
+**Answer:**
+**Volatile Storage** stores messages in memory, making them faster to process but not recoverable if the system shuts down. It provides **at-most-once** delivery.
+
+**Example:**
+
+- Use volatile storage for short-lived or non-critical messages, such as real-time notifications.
+
+---
+
+### **9. What is Guaranteed Storage?**
+
+**Answer:**
+**Guaranteed Storage** stores messages on disk, ensuring they are recoverable if the system shuts down. It provides **at-least-once** or **exactly-once** delivery.
+
+**Example:**
+
+- Use guaranteed storage for critical messages, such as financial transactions.
+
+---
+
+### **10. Example Scenario: Publish-Subscribe with Durable Subscriptions**
+
+**Scenario**: A news agency publishes breaking news updates to a topic.
+
+#### **Steps:**
+
+1. **Create a Topic**:
+
+   - Define a topic `BreakingNews`.
+
+2. **Publish Messages**:
+
+   - Publish news updates to `BreakingNews`.
+
+3. **Subscribe to Topic**:
+
+   - Multiple news apps subscribe to `BreakingNews` with durable subscriptions.
+
+4. **Receive Messages**:
+   - Subscribers receive all news updates, even if they were offline when the updates were published.
+
+---
+
+### **11. Example Scenario: Point-to-Point Messaging**
+
+**Scenario**: An e-commerce system sends order confirmation messages to customers.
+
+#### **Steps:**
+
+1. **Create a Queue**:
+
+   - Define a queue `OrderConfirmations`.
+
+2. **Send Messages**:
+
+   - Send order confirmation messages to `OrderConfirmations`.
+
+3. **Receive Messages**:
+   - The customer’s application receives the confirmation message.
+
+---
+
+### **12. Example Scenario: Message Acknowledgment**
+
+**Scenario**: A JMS trigger processes payment confirmation messages.
+
+#### **Steps:**
+
+1. **Set Acknowledgment Mode**:
+
+   - Use `CLIENT_ACKNOWLEDGE` to ensure messages are acknowledged only after successful processing.
+
+2. **Process Messages**:
+   - The trigger processes the payment confirmation and acknowledges the message.
+
+---
+
+### **13. Example Scenario: Volatile vs. Guaranteed Storage**
+
+**Scenario**: A stock trading system sends stock price updates and trade execution messages.
+
+#### **Steps:**
+
+1. **Volatile Storage**:
+
+   - Use volatile storage for stock price updates, which are time-sensitive and non-critical.
+
+2. **Guaranteed Storage**:
+   - Use guaranteed storage for trade execution messages, which are critical and must not be lost.
 
 ---
