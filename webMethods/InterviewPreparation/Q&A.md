@@ -1876,3 +1876,189 @@ In **Publish-Subscribe** messaging, messages are sent to a destination called a 
    - Use guaranteed storage for trade execution messages, which are critical and must not be lost.
 
 ---
+
+### **1. Overview of Durable Subscriptions**
+
+**Answer:**
+**Durable Subscriptions** in Universal Messaging allow clients to retain state for events consumed from a channel. This ensures that even if a client disconnects or restarts, it can resume consuming events from where it left off.
+
+#### **Key Features:**
+
+1. **State Maintenance**:
+
+   - The realm server maintains the state of events consumed by a specific client.
+   - Events remain on the channel until all durable subscriptions have acknowledged them.
+
+2. **Multiple Durable Subscriptions**:
+
+   - A channel can have multiple durable subscriptions, each identified by a unique name.
+   - Subscriptions operate independently and are unaware of each other.
+
+3. **Persistence**:
+
+   - Durable subscriptions are persistent. If the realm server restarts, clients continue processing from where they stopped.
+
+4. **Cluster-Wide Durable Subscriptions**:
+
+   - Durable subscriptions can be replicated across a cluster for high availability.
+
+5. **Types of Durable Subscriptions**:
+
+   - **Exclusive**: Only one active client can consume events.
+   - **Shared**: Multiple clients can consume events in a round-robin fashion.
+   - **Serial**: Similar to Shared but ensures ordered delivery.
+
+6. **Acknowledgment**:
+   - Events can be acknowledged automatically (`auto acknowledge`) or explicitly by the client.
+
+**Example:**
+
+- A stock trading application uses a durable subscription to ensure it receives all stock price updates, even if the application restarts.
+
+---
+
+### **2. What is a Message Producer?**
+
+**Answer:**
+A **Message Producer** is an object created by a JMS session to send messages to a destination (e.g., a topic or queue).
+
+**Example:**
+
+- A message producer sends an order confirmation message to a `OrderConfirmations` queue.
+
+---
+
+### **3. What is a Message Consumer?**
+
+**Answer:**
+A **Message Consumer** is an object created by a JMS session to receive messages from a destination. It allows clients to register interest in a destination and manage message delivery.
+
+**Example:**
+
+- A message consumer receives order confirmation messages from the `OrderConfirmations` queue.
+
+---
+
+### **4. What is a Message Selector?**
+
+**Answer:**
+A **Message Selector** allows a client to filter messages based on a SQL92 expression applied to message header properties. Only messages that match the selector are delivered to the client.
+
+**Example:**
+
+- A message selector filters messages where the `OrderType` property is `"Priority"`.
+
+---
+
+### **5. What are Messages in JMS?**
+
+**Answer:**
+**Messages** are objects that communicate information between JMS clients. They consist of:
+
+1. **Header**:
+
+   - Contains predefined fields for identifying and routing messages.
+   - Example: `JMSMessageID`, `JMSTimestamp`.
+
+2. **Properties**:
+
+   - Optional fields added to the message header.
+   - Example: Custom properties like `OrderType` or `CustomerID`.
+
+3. **Body**:
+   - Contains the actual message content.
+   - Example: Text, bytes, or a serialized object.
+
+**Example:**
+
+- A message with a header (`JMSMessageID`), properties (`OrderType: "Priority"`), and a body (`OrderDetails`).
+
+---
+
+### **6. Example Scenario: Durable Subscriptions**
+
+**Scenario**: A news agency publishes breaking news updates to a topic.
+
+#### **Steps:**
+
+1. **Create a Topic**:
+
+   - Define a topic `BreakingNews`.
+
+2. **Publish Messages**:
+
+   - Publish news updates to `BreakingNews`.
+
+3. **Subscribe to Topic**:
+
+   - Multiple news apps subscribe to `BreakingNews` with durable subscriptions.
+
+4. **Receive Messages**:
+   - Subscribers receive all news updates, even if they were offline when the updates were published.
+
+---
+
+### **7. Example Scenario: Message Selector**
+
+**Scenario**: An e-commerce system sends order confirmation messages to customers.
+
+#### **Steps:**
+
+1. **Create a Queue**:
+
+   - Define a queue `OrderConfirmations`.
+
+2. **Send Messages**:
+
+   - Send order confirmation messages with properties like `OrderType` and `CustomerID`.
+
+3. **Filter Messages**:
+
+   - Use a message selector to filter messages where `OrderType` is `"Priority"`.
+
+4. **Receive Messages**:
+   - The customer’s application receives only priority order confirmations.
+
+---
+
+### **8. Example Scenario: Message Producer and Consumer**
+
+**Scenario**: A stock trading system sends trade execution messages.
+
+#### **Steps:**
+
+1. **Create a Queue**:
+
+   - Define a queue `TradeExecutions`.
+
+2. **Send Messages**:
+
+   - A message producer sends trade execution messages to `TradeExecutions`.
+
+3. **Receive Messages**:
+   - A message consumer receives trade execution messages from `TradeExecutions`.
+
+---
+
+### **9. Example Scenario: Cluster-Wide Durable Subscriptions**
+
+**Scenario**: A financial institution uses a cluster-wide durable subscription for high availability.
+
+#### **Steps:**
+
+1. **Create a Cluster-Wide Channel**:
+
+   - Define a channel `FinancialTransactions`.
+
+2. **Create Durable Subscription**:
+
+   - Create a cluster-wide durable subscription on `FinancialTransactions`.
+
+3. **Publish Messages**:
+
+   - Publish transaction messages to `FinancialTransactions`.
+
+4. **Receive Messages**:
+   - Clients in the cluster receive messages, ensuring high availability.
+
+---
