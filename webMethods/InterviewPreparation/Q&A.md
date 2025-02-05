@@ -2638,3 +2638,176 @@ A **Document Resolver Service** determines the status of a message (NEW, DUPLICA
    - The service determines if each message is new, duplicate, or in doubt.
 
 ---
+
+### **1. What are LOOP Properties?**
+**Answer:**
+The **LOOP** step is used to iterate over an array (e.g., a list of items) and execute a sequence of steps for each element. Key properties include:
+- **Input Array**: Specifies the array to loop through.
+- **Output Array**: Collects output from each iteration into an array.
+
+**Example:**
+- A **LOOP** step processes each line item in a purchase order (`LineItems` array) and collects the results in an `InventoryStatus` array.
+
+---
+
+### **2. How to Collect Output from a LOOP Step?**
+**Answer:**
+To collect output from a **LOOP** step:
+1. Specify the **Output Array** parameter in the LOOP step properties.
+2. The server automatically collects the output from each iteration into the specified array.
+
+**Example:**
+- A **LOOP** step processes `LineItems` and collects the `InventoryStatus` for each item into an `InventoryStatusList` array.
+
+---
+
+### **3. What is the Pipeline for a LOOP Step?**
+**Answer:**
+Within a **LOOP** step:
+- The **Input Array** is reduced dimensionally. For example, a `String list` becomes a `String`.
+- The **Output Array** is also reduced dimensionally. For example, a `String list` output is treated as a `String` within the loop.
+
+**Example:**
+- A **LOOP** step processes a `String list` (`myInputList`) and produces a `String list` (`myOutputList`). Inside the loop, each element is treated as a `String`.
+
+---
+
+### **4. What is an EXIT Step?**
+**Answer:**
+The **EXIT** step exits a flow service, a specific parent step, or an iteration within a **LOOP** or **REPEAT** step. It can signal success or failure.
+
+#### **Key Features:**
+- **Exit from**: Specifies what to exit (e.g., iteration, loop, flow, or parent step).
+- **Success/Failure**: Determines whether the exit is successful or results in an exception.
+
+**Example:**
+- An **EXIT** step exits a **LOOP** if a condition is met (e.g., `CreditCardType` is null).
+
+---
+
+### **5. Exiting on Success or Failure**
+**Answer:**
+- **Success**: Exits the step or service successfully. Execution continues based on the `Exit from` property.
+- **Failure**: Exits with an exception, which propagates until caught or the flow ends.
+
+**Example:**
+- Exiting with **Success** abruptly completes a step without failure.
+- Exiting with **Failure** throws an exception (e.g., `FlowException`).
+
+---
+
+### **6. Exiting from Iterations, Steps, or Services**
+**Answer:**
+The **EXIT** step can exit from:
+- **$iteration**: Exits the current iteration of a **LOOP** or **REPEAT** step.
+- **$loop**: Exits the nearest **LOOP** or **REPEAT** step.
+- **$flow**: Exits the entire flow service.
+- **$parent**: Exits the parent step.
+
+**Example:**
+- Exiting from **$loop** stops the loop and continues with the next step.
+- Exiting from **$flow** ends the entire flow service.
+
+---
+
+### **7. What is a MAP Step?**
+**Answer:**
+The **MAP** step adjusts the pipeline by:
+- Linking, adding, or dropping variables.
+- Cleaning up the pipeline after a step.
+- Moving or assigning values to variables.
+- Mapping documents from one format to another.
+
+**Example:**
+- A **MAP** step prepares the pipeline for a subsequent service by mapping input fields.
+
+---
+
+### **8. Example Scenario: LOOP Step**
+**Scenario**: A flow service processes a list of purchase orders.
+
+#### **Steps:**
+1. **LOOP**: Iterate over the `PurchaseOrders` list.
+   - **Input Array**: `PurchaseOrders`.
+   - **Output Array**: `ProcessedOrders`.
+
+2. **INVOKE**: Call a service to validate each order.
+3. **MAP**: Map the validated order to the `ProcessedOrders` array.
+
+---
+
+### **9. Example Scenario: EXIT Step**
+**Scenario**: A flow service processes customer orders and exits if the payment type is invalid.
+
+#### **Steps:**
+1. **BRANCH**: Check the payment type.
+   - If `CreditCardType` is null, use an **EXIT** step to exit the flow with failure.
+   - Otherwise, process the order.
+
+---
+
+### **10. Example Scenario: MAP Step**
+**Scenario**: A flow service processes customer details and maps them to a different format.
+
+#### **Steps:**
+1. **INVOKE**: Call a service to fetch customer details.
+2. **MAP**: Map the customer details from XML to a proprietary format.
+3. **INVOKE**: Call a service to save the mapped details.
+
+---
+
+### **11. Example Scenario: Collecting Output from a LOOP**
+**Scenario**: A flow service checks inventory for each item in a purchase order.
+
+#### **Steps:**
+1. **LOOP**: Iterate over the `LineItems` array.
+   - **Input Array**: `LineItems`.
+   - **Output Array**: `InventoryStatusList`.
+
+2. **INVOKE**: Call a service to check inventory for each item.
+3. **MAP**: Map the inventory status to the `InventoryStatusList` array.
+
+---
+
+### **12. Example Scenario: Exiting from a LOOP**
+**Scenario**: A flow service processes a list of orders and exits the loop if an order is invalid.
+
+#### **Steps:**
+1. **LOOP**: Iterate over the `Orders` list.
+2. **BRANCH**: Check if the order is valid.
+   - If invalid, use an **EXIT** step to exit the loop.
+   - If valid, process the order.
+
+---
+
+### **13. Example Scenario: Exiting from a Flow**
+**Scenario**: A flow service processes customer details and exits if an error occurs.
+
+#### **Steps:**
+1. **INVOKE**: Call a service to fetch customer details.
+2. **BRANCH**: Check for errors.
+   - If an error occurs, use an **EXIT** step to exit the flow with failure.
+   - Otherwise, continue processing.
+
+---
+
+### **14. Example Scenario: MAP Step for Document Transformation**
+**Scenario**: A flow service transforms an XML document to an ebXML format.
+
+#### **Steps:**
+1. **INVOKE**: Call a service to fetch the XML document.
+2. **MAP**: Map the XML document to the ebXML format.
+3. **INVOKE**: Call a service to save the ebXML document.
+
+---
+
+### **15. Example Scenario: Exiting with Success**
+**Scenario**: A flow service processes a list of tasks and exits if all tasks are completed.
+
+#### **Steps:**
+1. **LOOP**: Iterate over the `Tasks` list.
+2. **BRANCH**: Check if all tasks are completed.
+   - If completed, use an **EXIT** step to exit the flow with success.
+   - Otherwise, continue processing.
+
+---
