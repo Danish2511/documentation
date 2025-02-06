@@ -4,10 +4,13 @@ topic_accountsponsorchangeudm:
   env_default:
     name_fragment: accountsponsorchangeudm
     contexts: []
-    schema_type: PROTOBUF
-    schema_path: schemas/amgldocs/protobuf/AmGlDocs_Account_SponsorChange_AccountSponsorChangeUDM.proto
+    record_type: Danish
   env_dv:
     contexts:
+      - context: "global"
+        partitions: 1
+        context_roles:
+          topic_read: ["magic_dv_global_read"]
       - context: "010"
         partitions: 1
         context_roles:
