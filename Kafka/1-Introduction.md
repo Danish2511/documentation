@@ -264,5 +264,3 @@ Got it! Let’s break down **every Kafka terminology** in a simple and easy-to-u
 - **Analogy:** Scalability is like adding more **lanes to a highway** to handle more traffic.
 
 ---
-
-
