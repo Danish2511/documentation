@@ -37,17 +37,21 @@ Kafka runs on Java, so you need to verify if JDK is installed and install it if 
 
    - Go to the [Apache Kafka Downloads page](https://kafka.apache.org/downloads).
    - Download the latest binary (e.g., `kafka_2.13-3.9.0.tgz`).
+
      ![alt text](images/image.png)
 
 2. **Extract Kafka**:
 
    - Use a tool like 7-Zip to extract `kafka_2.13-3.9.0.tgz` to `C:\kafka`.
    - Extract it and rename directory as `kafka` and place it in `C Drive`.
+
      ![alt text](images/paste.png)
 
 3. **Verify Extraction**:
+
    - Navigate and open the Kafka directory:
    - You should see directories like `bin`, `config`, and `libs`.
+
      ![Kafka Directory Contents](images/Screenshot%202025-03-09%20151414.png)
 
 ---
@@ -78,130 +82,98 @@ Kafka runs on Java, so you need to verify if JDK is installed and install it if 
      ```
 
 **Screenshot**:
-![Configuration Files](screenshots/step3-config-files.png)
+![Configuration Files](images/step3-config-files.png)
 _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` directories in File Explorer or CMD `dir` output._
 
 --- -->
 
-## Step 3: Start ZooKeeper
+## Step 3: Start Zookeeper
 
-1. **Open a New CMD Window**:
+1. **Open a New CMD Window and Start Zookeeper**:
 
-   ```
-   cmd
-   ```
-
-2. **Navigate to Kafka Directory**:
-
-   ```
-   cd C:\kafka
-   ```
-
-3. **Start ZooKeeper**:
    - Run:
+
+     ```cmd
+     C:\kafka\bin\windows\zookeeper-server-start.bat C:\kafka\config\zookeeper.properties
      ```
-     bin\windows\zookeeper-server-start.bat config\zookeeper.properties
-     ```
+
+     ![ZooKeeper Running](images/Screenshot%202025-03-09%20154415.png)
+
    - Keep this window open to see ZooKeeper logs.
 
-**Screenshot**:
-![ZooKeeper Running](screenshots/step4-zookeeper.png)  
-_Caption: Screenshot showing ZooKeeper startup logs in CMD._
+     ![ZooKeeper Running](images/Screenshot%202025-03-09%20154704.png)
 
 ---
 
 ## Step 4: Start Kafka Server
 
-1. **Open Another CMD Window**:
+1. **Open Another CMD Window and Start Kafka**:
 
-   ```
-   cmd
-   ```
-
-2. **Navigate to Kafka Directory**:
-
-   ```
-   cd C:\kafka
-   ```
-
-3. **Start Kafka**:
    - Run:
-     ```
-     bin\windows\kafka-server-start.bat config\server.properties
-     ```
-   - Keep this window open to see Kafka logs.
 
-**Screenshot**:
-![Kafka Server Running](screenshots/step5-kafka-server.png)  
-_Caption: Screenshot showing Kafka server startup logs in CMD._
+     ```cmd
+     C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
+     ```
+
+     ![Kafka Server Running](images/Screenshot%202025-03-09%20155400.png)
+
+   - Keep this window open to see Kafka logs.
 
 ---
 
 ## Step 5: Create a Kafka Topic
 
-1. **Open a New CMD Window**:
+1.  **Open a New CMD Window and Create a Topic**:
 
-2. **Navigate to Kafka Directory**:
+    - Create `test-topic`:
 
-   ```cmd
-   cd C:\kafka
-   ```
+      ```
+      C:\kafka\bin\windows\kafka-topics.bat --create --topic test-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+      ```
 
-3. **Create a Topic**:
+    - Output:
 
-   - Create `test-topic`:
-     ```
-     bin\windows\kafka-topics.bat --create --topic test-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-     ```
-   - Output:
-     ```
-     Created topic test-topic.
-     ```
+      ![Kafka Server Running](images/Screenshot%202025-03-09%20155820.png)
 
-4. **List Topics**:
-   - Verify:
-     ```
-     bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
-     ```
-   - Output:
-     ```
-     test-topic
-     ```
+2.  **List Topics**:
 
-**Screenshot**:
-![Topic Creation](screenshots/step6-topic-creation.png)  
-_Caption: Screenshot showing the output of topic creation and listing in CMD._
+    - Verify:
+
+      ```cmd
+      C:\kafka\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+      ```
+
+    - Output:
+
+      ![Topic Creation](images/Screenshot%202025-03-09%20160610.png)
 
 ---
 
 ## Step 6: Test Kafka with Producer and Consumer
 
-1. **Start a Producer**:
+1.  **Start a Producer**:
 
-   - Open a new CMD window and navigate:
-     ```
-     cd C:\kafka
-     ```
-   - Run:
-     ```
-     bin\windows\kafka-console-producer.bat --topic test-topic --bootstrap-server localhost:9092
-     ```
-   - Type messages (e.g., `Hello Kafka`) and press Enter.
+    - Run:
 
-2. **Start a Consumer**:
-   - Open another CMD window and navigate:
-     ```
-     cd C:\kafka
-     ```
-   - Run:
-     ```
-     bin\windows\kafka-console-consumer.bat --topic test-topic --from-beginning --bootstrap-server localhost:9092
-     ```
-   - See the messages from the producer.
+      ```cmd
+      C:\kafka\bin\windows\kafka-console-producer.bat --topic test-topic --bootstrap-server localhost:9092
+      ```
 
-**Screenshot**:
-![Producer and Consumer](screenshots/step7-producer-consumer.png)  
-_Caption: Screenshot showing producer sending messages and consumer receiving them in separate CMD windows._
+    - Type messages (e.g., `Hello Kafka`) and press Enter.
+
+      ![Producer and Consumer](images/Screenshot%202025-03-09%20161207.png)
+
+2.  **Start a Consumer**:
+
+    - Run:
+
+      ```cmd
+      C:\kafka\bin\windows\kafka-console-consumer.bat --topic test-topic --from-beginning --bootstrap-server localhost:9092
+      ```
+
+    - See the messages from the producer.
+
+      ![Producer and Consumer](images/Screenshot%202025-03-09%20161416.png)
 
 ---
 
@@ -211,28 +183,12 @@ _Caption: Screenshot showing producer sending messages and consumer receiving th
 
    - Go to the Kafka server CMD window and press `Ctrl+C`.
 
+   ![Shutdown Confirmation](images/Screenshot%202025-03-09%20161843.png)
+
 2. **Stop ZooKeeper**:
+
    - Go to the ZooKeeper CMD window and press `Ctrl+C`.
 
-**Screenshot**:
-![Shutdown Confirmation](screenshots/step8-shutdown.png)  
-_Caption: Screenshot showing the Kafka and ZooKeeper CMD windows after pressing `Ctrl+C` with shutdown logs._
+   ![Shutdown Confirmation](images/Screenshot%202025-03-09%20161932.png)
 
 ---
-
-## Troubleshooting
-
-- **Java not found**: Recheck `JAVA_HOME` and PATH.
-- **Port conflicts**: Verify ports `9092` (Kafka) and `2181` (ZooKeeper):
-  ```
-  netstat -a -n -o | find "9092"
-  netstat -a -n -o | find "2181"
-  ```
-- **Logs**: Inspect `C:\kafka\kafka-logs` and `zookeeper-data`.
-
----
-
-## Notes
-
-- This is a single-node setup for testing.
-- Use quotes for paths with spaces in CMD.
