@@ -44,46 +44,6 @@ Imagine you are running a **taxi-hailing app** like Uber:
 
 ---
 
-## **Hands-On Practice**
-
-1. **Set Up Kafka**
-
-   - **Download Kafka**: Get it from [Apache Kafka Downloads](https://kafka.apache.org/downloads).
-     ![alt text](images/image.png)
-
-   - Extract it and rename directory as **kafka** and place it in C Drive:
-     ![alt text](images/paste.png)
-
-2. **Start Kafka**
-
-   - Run ZooKeeper (Kafka relies on it):
-
-   ```bash
-   bin/zookeeper-server-start.sh config/zookeeper.properties
-   ```
-
-   - Start Kafka Broker:
-
-   ```bash
-   bin/kafka-server-start.sh config/server.properties
-   ```
-
-3. **Verify Installation**
-   - List topics (it will be empty initially):
-     ```bash
-     bin/kafka-topics.sh --list --bootstrap-server localhost:9092
-     ```
-
----
-
-## **Key Terms**
-
-- **Broker**: A single Kafka server in the cluster.
-- **Cluster**: A group of brokers working together.
-- **Topic**: A named category to which messages are sent.
-
----
-
 ## **Best Practices**
 
 - **Plan Your Cluster**: Start small and grow as needed.
