@@ -78,7 +78,7 @@ Kafka runs on Java, so you need to verify if JDK is installed and install it if 
      ```
 
 **Screenshot**:
-![Configuration Files](screenshots/step3-config-files.png)  
+![Configuration Files](screenshots/step3-config-files.png)
 _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` directories in File Explorer or CMD `dir` output._
 
 --- -->
@@ -143,7 +143,7 @@ _Caption: Screenshot showing Kafka server startup logs in CMD._
 
 2. **Navigate to Kafka Directory**:
 
-   ``` shell
+   ```cmd
    cd C:\kafka
    ```
 
