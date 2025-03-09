@@ -15,18 +15,17 @@ This guide provides step-by-step instructions to install and configure Apache Ka
 Kafka runs on Java, so you need to verify if JDK is installed and install it if necessary.
 
 1. **Check for Existing Java Installation**:
-   - Open CMD:
-     ```
-     cmd
-     ```
-   - Check the Java version:
-     ```
+
+   - Open CMD and Check the Java version:
+
+     ```cmd
      java -version
      ```
+
    - If installed, you’ll see output like:
-     ```
-     java version "11.0.22" 2023-01-17 LTS
-     ```
+
+     ![alt text](images/Screenshot%202025-03-09%20162737.png)
+
    - If you get `'java' is not recognized`, proceed to download install JDK.
 
 ---
@@ -183,12 +182,12 @@ _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` direc
 
    - Go to the Kafka server CMD window and press `Ctrl+C`.
 
-   ![Shutdown Confirmation](images/Screenshot%202025-03-09%20161843.png)
+     ![Shutdown Confirmation](images/Screenshot%202025-03-09%20161843.png)
 
 2. **Stop ZooKeeper**:
 
    - Go to the ZooKeeper CMD window and press `Ctrl+C`.
 
-   ![Shutdown Confirmation](images/Screenshot%202025-03-09%20161932.png)
+     ![Shutdown Confirmation](images/Screenshot%202025-03-09%20161932.png)
 
 ---
