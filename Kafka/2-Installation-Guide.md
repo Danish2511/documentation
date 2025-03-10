@@ -176,7 +176,59 @@ _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` direc
 
 ---
 
-## Step 7: Stop Kafka and ZooKeeper
+## Step 7: Set Up Kafka UI
+
+1. **Download Kafka UI JAR**:
+   - Visit [https://github.com/provectus/kafka-ui/releases](https://github.com/provectus/kafka-ui/releases).
+   - Download the latest `.jar` file (e.g., `kafka-ui-0.7.2.jar`).
+2. **Rename the JAR**: Rename the downloaded file to `kafka-ui.jar` for simplicity.
+3. **Create `app.yaml`**:
+
+   - Open a text editor (e.g., Notepad) and paste the following configuration:
+     ```yaml
+     kafka:
+       clusters:
+         - name: local
+           bootstrap-servers: localhost:9092
+           zookeeper: localhost:2181
+     server:
+       port: 8082
+     auth:
+       type: DISABLED
+     ```
+   - Save the file as `app.yaml` in a folder (e.g., `C:\kafka-ui`).
+
+   _Alternatively_, download the `app.yaml` file directly:
+
+   - [Download app.yaml](images/app.yaml) _(Note: Replace this with a real link if hosted, e.g., on GitHub. Without a hosting platform, users must copy the content above.)_
+
+4. **Organize Files**: Place both `kafka-ui.jar` and `app.yaml` in the same folder (e.g., `C:\kafka-ui`).
+5. **Run Kafka UI**:
+
+   - Open a new Command Prompt window.
+   - Navigate to the folder:
+
+     ```cmd
+     cd C:\kafka-ui
+     ```
+
+   - Execute the following command:
+
+     ```cmd
+     java -jar kafka-ui.jar --spring.config.location=app.yaml
+     ```
+
+     ![Kafka UI](images/Screenshot%202025-03-10%20092454.png)
+
+   - Keep this window open; Kafka UI will start.
+
+6. **Access the UI**:
+   - Open a web browser and go to `http://localhost:8082`.
+   - You should see the Kafka UI dashboard displaying your local cluster, topics, and brokers.
+
+---
+
+## Step 8: Stop Kafka and ZooKeeper
 
 1. **Stop Kafka Server**:
 
