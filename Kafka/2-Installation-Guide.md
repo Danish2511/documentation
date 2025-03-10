@@ -200,7 +200,7 @@ _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` direc
 
    _Alternatively_, download the `app.yaml` file directly:
 
-   - [Download app.yaml](images/app.yaml) _(Note: Replace this with a real link if hosted, e.g., on GitHub. Without a hosting platform, users must copy the content above.)_
+   - [Download app.yaml](https://github.com/Danish2511/documentation/blob/main/Kafka/images/app.yaml)
 
 4. **Organize Files**: Place both `kafka-ui.jar` and `app.yaml` in the same folder (e.g., `C:\kafka-ui`).
 5. **Run Kafka UI**:
