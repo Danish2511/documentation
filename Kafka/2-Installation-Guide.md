@@ -179,12 +179,17 @@ _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` direc
 ## Step 7: Set Up Kafka UI
 
 1. **Download Kafka UI JAR**:
+
    - Visit [https://github.com/provectus/kafka-ui/releases](https://github.com/provectus/kafka-ui/releases).
    - Download the latest `.jar` file (e.g., `kafka-ui-0.7.2.jar`).
+
+     ![Kafka UI](images/Screenshot%202025-03-10%20094450.png)
+
 2. **Rename the JAR**: Rename the downloaded file to `kafka-ui.jar` for simplicity.
 3. **Create `app.yaml`**:
 
    - Open a text editor (e.g., Notepad) and paste the following configuration:
+
      ```yaml
      kafka:
        clusters:
@@ -196,6 +201,7 @@ _Caption: Screenshot showing the created `zookeeper-data` and `kafka-logs` direc
      auth:
        type: DISABLED
      ```
+
    - Save the file as `app.yaml` in a folder (e.g., `C:\kafka-ui`).
 
    _Alternatively_, download the `app.yaml` file directly:
